@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
-from sys import argv
 import random
-
-
 
 def make_chains(corpus):
     """Takes an input text as a string and returns a dictionary of
@@ -54,9 +51,9 @@ def make_text(chains):
     return "Here's some random text."
 
 def main():
-    # script, from_file = argv
-    # args = sys.argv
-    text = open("sophocles.txt")
+    script, from_file = argv
+    #args = sys.argv
+    text = open(from_file)
     book = text.read()
     # Change this to read input_text from a file
     input_text = "Some text"
