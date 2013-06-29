@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+from sys import argv
 import random
 
 def make_chains(corpus):
@@ -31,14 +31,18 @@ def make_text(chains):
     Step 6: Go to Step 3, repeat until done
     """
     init_key = random.choice(chains.keys())
+    while not init_key[0].isupper():
+        init_key = random.choice(chains.keys())
+
     markov_text = init_key[0] + " " + init_key[1]
     count = 0
-    while init_key in chains and count < 100:
+    while init_key in chains and count < 500:
         choose_value = random.choice(chains[init_key])
         markov_text = markov_text + " " + choose_value
         init_key = (init_key[1], choose_value)
         count += 1
-    print markov_text
+    
+    return markov_text
     """
     Potential awesome things to do:
     1: Limit the length of the text
@@ -48,7 +52,37 @@ def make_text(chains):
     4: Mashup
     5: Tweet
     """
-    return "Here's some random text."
+
+def make_format(body):
+    """
+    Takes the mass of text and formats it to appear more like a script.Capitalization will determine spacing:
+        words in all caps are set off with new lines b/c are 
+        character names or stage directions
+    # """
+    print type(body)
+
+    words = body.split()
+    # upper_words = []
+    # lower_words = []
+
+    for word in words:  # this prints out a list of capital words
+        if word.isupper() and len(word)>2:
+            # print word.index
+            print word
+
+    # print words
+
+    """
+    Step 1: Access word in all caps  -- okay
+    Step 2: Print words in all caps  -- okay
+    Step 3: Add 2 new lines above (1 empty line) and 1 below
+        --> this means making a new string?
+    Step 4: Combine capital words with un-capitalized
+
+    ISSUES: What if multiple capitalized words follow each other?
+            What about I, O, A, 
+    """
+
 
 def main():
     script, from_file = argv
@@ -61,6 +95,7 @@ def main():
 
     chain_dict = make_chains(book)
     random_text = make_text(chain_dict)
+    format_text = make_format(random_text)
     #print random_text
 
 if __name__ == "__main__":
